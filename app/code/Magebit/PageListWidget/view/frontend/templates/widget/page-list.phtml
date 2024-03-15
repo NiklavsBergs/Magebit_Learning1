@@ -5,5 +5,15 @@
 /** @var \Magento\Framework\Escaper $escaper */
 /** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
 ?>
-<h3><?= $escaper->escapeHtml($block->getData('title')) ?></h3>
-<h3><?= $escaper->escapeHtml(__('Mode:')) ?> <?= $escaper->escapeHtml($block->getData('display_mode')) ?></h3>
+
+<h3><?php echo($block->getTitle())?></h3>
+
+<h3><?php $pages = $block->getChosenPages()?></h3>
+
+<ul>
+    <?php foreach ($pages as $page): ?>
+        <li><a href="<?php echo $block->getHref($page->getId()); ?>"><?php echo $page->getTitle(); ?></a></li>
+    <?php endforeach; ?>
+</ul>
+
+

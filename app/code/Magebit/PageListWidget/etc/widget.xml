@@ -11,7 +11,7 @@
 
 <widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
-    <widget class="ExampleVendor\ExampleModule\Block\Widget\ExampleBanner" id="example_banner" placeholder_image="ExampleVendor_ExampleModule::example_banner_icon.png">
+    <widget class="Magebit\PageListWidget\Block\Widget\PageList" id="page_list_widget">
         <label>CMS Page List Widget</label>
         <description>Place a list of CMS pages where necessary</description>
         <parameters>
@@ -31,8 +31,12 @@
                 </options>
 
             </parameter>
-            <parameter name="selected_pages" xsi:type="multiselect" required="true" visible="false" sort_order="50">
-                <label>Selected Pages</label>
+            <parameter name="chosen_pages" xsi:type="multiselect" required="true"
+                       visible="true" source_model="Magebit\PageListWidget\Model\PageOptions" sort_order="40">
+                <label>Selected pages</label>
+                <depends>
+                    <parameter name="display_mode" value="specific" />
+                </depends>
             </parameter>
         </parameters>
     </widget>
