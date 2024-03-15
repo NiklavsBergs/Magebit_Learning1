@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magebit_PageListWidget
+ *
+ * @category Magebit
+ * @package  Magebit_PageListWidget
+ * @author   Niklāvs Bergs <niklavs.bergs@magebit.com>
+ */
+-->
+
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget class="ExampleVendor\ExampleModule\Block\Widget\ExampleBanner" id="example_banner" placeholder_image="ExampleVendor_ExampleModule::example_banner_icon.png">
+        <label>CMS Page List Widget</label>
+        <description>Place a list of CMS pages where necessary</description>
+        <parameters>
+            <parameter name="title" xsi:type="text" required="false" visible="true" sort_order="10">
+                <label>Title</label>
+                <value>Title</value>
+            </parameter>
+            <parameter name="display_mode" xsi:type="select" required="true" visible="true" sort_order="30">
+                <label>Display Mode</label>
+                <options>
+                    <option name="all" value="all">
+                        <label>All Pages</label>
+                    </option>
+                    <option name="specific" value="specific">
+                        <label>Specific pages</label>
+                    </option>
+                </options>
+
+            </parameter>
+            <parameter name="selected_pages" xsi:type="multiselect" required="true" visible="false" sort_order="50">
+                <label>Selected Pages</label>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

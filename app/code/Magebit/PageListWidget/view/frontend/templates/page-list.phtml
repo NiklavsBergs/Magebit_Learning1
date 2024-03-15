@@ -1,0 +1,9 @@
+<?php
+/** @var \Magento\Framework\View\TemplateEngineInterface $this */
+/** @var \Magebit\PageListWidget\Block\Widget\PageList $block */
+/** @var \Magento\Csp\Api\InlineUtilInterface $csp */
+/** @var \Magento\Framework\Escaper $escaper */
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+?>
+<h3><?= $escaper->escapeHtml($block->getData('title')) ?></h3>
+<h3><?= $escaper->escapeHtml(__('Mode:')) ?> <?= $escaper->escapeHtml($block->getData('display_mode')) ?></h3>
