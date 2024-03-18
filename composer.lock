@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0cb0975c28e9754b2eea4d7573a73b04",
+    "content-hash": "17f47d831f94b175717f027e7a3a4db7",
     "packages": [
         {
             "name": "2tvenom/cborencode",
@@ -7577,37 +7577,6 @@
                 ],
                 "psr-4": {
                     "Magento\\CatalogRuleGraphQl\\": ""
-                }
-            },
-            "license": [
-                "OSL-3.0",
-                "AFL-3.0"
-            ],
-            "description": "N/A"
-        },
-        {
-            "name": "magento/module-catalog-rule-sample-data",
-            "version": "100.4.2",
-            "dist": {
-                "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-catalog-rule-sample-data/magento-module-catalog-rule-sample-data-100.4.2.0.zip",
-                "shasum": "367f22734e02075b7bb0020340b3b28dc37a1aac"
-            },
-            "require": {
-                "magento/framework": "103.0.*",
-                "magento/module-catalog": "104.0.*",
-                "magento/module-catalog-rule": "101.2.*",
-                "magento/module-customer": "103.0.*",
-                "magento/module-store": "101.1.*",
-                "php": "~8.1.0||~8.2.0"
-            },
-            "type": "magento2-module",
-            "autoload": {
-                "files": [
-                    "registration.php"
-                ],
-                "psr-4": {
-                    "Magento\\CatalogRuleSampleData\\": ""
                 }
             },
             "license": [
@@ -15815,36 +15784,6 @@
                 ],
                 "psr-4": {
                     "Magento\\SalesRule\\": ""
-                }
-            },
-            "license": [
-                "OSL-3.0",
-                "AFL-3.0"
-            ],
-            "description": "N/A"
-        },
-        {
-            "name": "magento/module-sales-rule-sample-data",
-            "version": "100.4.2",
-            "dist": {
-                "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-sales-rule-sample-data/magento-module-sales-rule-sample-data-100.4.2.0.zip",
-                "shasum": "e6659662556c6604d6565552a6fb68900eb47dfb"
-            },
-            "require": {
-                "magento/framework": "103.0.*",
-                "magento/module-catalog-rule-sample-data": "100.4.*",
-                "magento/module-eav": "102.1.*",
-                "magento/module-sales-rule": "101.2.*",
-                "php": "~8.1.0||~8.2.0"
-            },
-            "type": "magento2-module",
-            "autoload": {
-                "files": [
-                    "registration.php"
-                ],
-                "psr-4": {
-                    "Magento\\SalesRuleSampleData\\": ""
                 }
             },
             "license": [
