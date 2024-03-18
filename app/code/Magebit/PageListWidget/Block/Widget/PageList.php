@@ -16,8 +16,14 @@ use function React\Promise\all;
 
 class PageList extends Template implements BlockInterface
 {
+    /**
+     * @var String (PageList title)
+     */
     private $_title;
 
+    /**
+     * @var String (PageList mode)
+     */
     public $_mode;
 
     /**
@@ -103,25 +109,6 @@ class PageList extends Template implements BlockInterface
             $this->_mode = $this->getData('display_mode');
         }
         return $this->_mode;
-    }
-
-    /**
-     * Retrieve list of all CMS pages formatted for options
-     *
-     * @return array
-     */
-    public function getCmsPagesOptions()
-    {
-        $options = [];
-
-        $pages = $this->getAllPages();
-        foreach ($pages as $page) {
-            $options[] = [
-                'value' => $page->getId(),
-                'label' => $page->getTitle()
-            ];
-        }
-        return $options;
     }
 
     /**

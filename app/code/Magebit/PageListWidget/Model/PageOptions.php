@@ -29,6 +29,15 @@ class PageOptions implements OptionSourceInterface
      */
     public function toOptionArray()
     {
-        return $this->pageListBlock->getCmsPagesOptions();
+        $options = [];
+
+        $pages = $this->pageListBlock->getAllPages();
+        foreach ($pages as $page) {
+            $options[] = [
+                'value' => $page->getId(),
+                'label' => $page->getTitle()
+            ];
+        }
+        return $options;
     }
 }
