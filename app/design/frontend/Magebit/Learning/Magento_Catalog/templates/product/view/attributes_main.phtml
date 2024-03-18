@@ -1,0 +1,30 @@
+<?php
+/** @var Magento\Catalog\Block\Product\View\Attributes $block */
+?>
+<?php
+$_helper = $this->helper(Magento\Catalog\Helper\Output::class);
+$_product = $block->getProduct();
+?>
+<?php try {
+    if ($_additional = $block->getAdditionalData()) :?>
+        <div class="additional-attributes-main">
+
+            <ul>
+                <?php foreach ($_additional as $_data) : ?>
+
+                    <?php if ($_data['code'] != 'short_description') :?>
+
+                    <li><strong><?= $_data['label'], ': ' ?></strong><?= $_helper->productAttribute($_product, $_data['value'], $_data['code']) ?></li>
+
+                    <?php endif ?>
+                <?php endforeach; ?>
+            </ul>
+
+            <div class="short-description">
+                <span><?= $_product->getShortDescription(); ?></span>
+            </div>
+
+        </div>
+    <?php endif;
+} catch (\Magento\Framework\Exception\LocalizedException $e) {
+} ?>
