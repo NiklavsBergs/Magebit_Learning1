@@ -24,7 +24,7 @@ class PageList extends Template implements BlockInterface
     /**
      * @var String (PageList mode)
      */
-    public $_mode;
+    private $_mode;
 
     /**
      * @var PageRepositoryInterface
@@ -38,7 +38,7 @@ class PageList extends Template implements BlockInterface
     /**
      * @var PageInterface[]|null
      */
-    private $allPages;
+    private $_allPages;
 
 
     /**
@@ -64,7 +64,7 @@ class PageList extends Template implements BlockInterface
         $this->pageRepository = $pageRepository;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
 
-        $this->allPages = $this->getAllPages();
+        $this->_allPages = $this->getAllPages();
         $this->_cmsPage = $cmsPage;
 
         parent::__construct($context, $data);
@@ -74,6 +74,7 @@ class PageList extends Template implements BlockInterface
      * Retrieve list of all CMS pages
      *
      * @return \Magento\Cms\Api\Data\PageInterface[]
+     * @throws LocalizedException
      */
     public function getAllPages()
     {
@@ -94,7 +95,6 @@ class PageList extends Template implements BlockInterface
                 $this->_title = $this->getData('title');
             }
         }
-
         return $this->_title;
     }
 
@@ -112,14 +112,14 @@ class PageList extends Template implements BlockInterface
     }
 
     /**
-     *  Retrieve pages chosen to show in list widget
+     *  Retrieves ids of pages chosen to show in list widget and returns pages
      * @return PageInterface[]|null
      */
     public function getChosenPages()
     {
         if($this->getMode() == 'all')
         {
-            return $this->allPages;
+            return $this->_allPages;
         }
         else
         {
@@ -127,7 +127,7 @@ class PageList extends Template implements BlockInterface
 
             $chosenIds = explode(',', $chosenPagesString);
 
-            $chosenPages = array_filter($this->allPages, function($page) use ($chosenIds) {
+            $chosenPages = array_filter($this->_allPages, function($page) use ($chosenIds) {
                 return in_array($page->getId(), $chosenIds);
             });
 
@@ -144,7 +144,6 @@ class PageList extends Template implements BlockInterface
     {
         return $this->_cmsPage->getPageUrl($id);
     }
-
 
     protected $_template = "widget/page-list.phtml";
 
