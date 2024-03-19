@@ -11,40 +11,24 @@ use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 use Magento\Widget\Block\BlockInterface;
 use Magento\Framework\Api\SearchCriteriaBuilder;
-use Magento\Widget\Model\Widget;
-use function React\Promise\all;
 
 class PageList extends Template implements BlockInterface
 {
-    /**
-     * @var String (PageList title)
-     */
-    private $_title;
-
-    /**
-     * @var String (PageList mode)
-     */
-    private $_mode;
+    protected $_template = "widget/page-list.phtml";
 
     /**
      * @var PageRepositoryInterface
      */
-    private $pageRepository;
+    private PageRepositoryInterface $pageRepository;
     /**
      * @var SearchCriteriaBuilder
      */
-    private $searchCriteriaBuilder;
-
-    /**
-     * @var PageInterface[]|null
-     */
-    private $_allPages;
-
+    private SearchCriteriaBuilder $searchCriteriaBuilder;
 
     /**
      * Cms page
      *
-     * @var \Magento\Cms\Helper\Page
+     * @var Page
      */
     protected $_cmsPage;
 
@@ -55,16 +39,15 @@ class PageList extends Template implements BlockInterface
      * @param array $data
      */
     public function __construct(
-        Context $context,
+        Context                 $context,
         PageRepositoryInterface $pageRepository,
-        SearchCriteriaBuilder $searchCriteriaBuilder,
-        Page $cmsPage,
-        array $data = []
+        SearchCriteriaBuilder   $searchCriteriaBuilder,
+        Page                    $cmsPage,
+        array                   $data = []
     ) {
         $this->pageRepository = $pageRepository;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
 
-        $this->_allPages = $this->getAllPages();
         $this->_cmsPage = $cmsPage;
 
         parent::__construct($context, $data);
@@ -73,10 +56,10 @@ class PageList extends Template implements BlockInterface
     /**
      * Retrieve list of all CMS pages
      *
-     * @return \Magento\Cms\Api\Data\PageInterface[]
+     * @return PageInterface[]
      * @throws LocalizedException
      */
-    public function getAllPages()
+    public function getAllPages(): array
     {
         $searchCriteria = $this->searchCriteriaBuilder->create();
         return $this->pageRepository->getList($searchCriteria)->getItems();
@@ -84,54 +67,49 @@ class PageList extends Template implements BlockInterface
 
     /**
      * Get title of list widget
-     * @return array|mixed|string|null
+     * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
-        if (!$this->_title) {
-            $this->_title = '';
-            if ($this->getData('title') !== null) {
-                // compare to null used here bc user can specify blank title
-                $this->_title = $this->getData('title');
-            }
+        if ($this->getData('title') !== null) {
+            return $this->getData('title');
         }
-        return $this->_title;
+
+        return '';
     }
 
     /**
      * Get display mode of list widget (all or specific)
-     * @return array|mixed|null
+     * @return string
      */
-    public function getMode()
+    public function getMode(): string
     {
-        if (!$this->_mode)
-        {
-            $this->_mode = $this->getData('display_mode');
-        }
-        return $this->_mode;
+        return $this->_mode = $this->getData('display_mode');
     }
 
     /**
      *  Retrieves ids of pages chosen to show in list widget and returns pages
      * @return PageInterface[]|null
      */
-    public function getChosenPages()
+    public function getChosenPages(): ?array
     {
-        if($this->getMode() == 'all')
-        {
-            return $this->_allPages;
-        }
-        else
-        {
-            $chosenPagesString = $this->getData('chosen_pages');
+        try {
+            if ($this->getMode() == 'all') {
+                return $this->getAllPages();
+            } else {
+                $chosenPagesString = $this->getData('chosen_pages');
 
-            $chosenIds = explode(',', $chosenPagesString);
+                $chosenIds = explode(',', $chosenPagesString);
 
-            $chosenPages = array_filter($this->_allPages, function($page) use ($chosenIds) {
-                return in_array($page->getId(), $chosenIds);
-            });
+                $searchCriteria = $this->searchCriteriaBuilder
+                    ->addFilter('page_id', $chosenIds, 'in')
+                    ->create();
 
-            return $chosenPages;
+                return $this->pageRepository->getList($searchCriteria)->getItems();
+            }
+        } catch (Exception $e) {
+            $this->_logger->critical($e);
+            return null;
         }
     }
 
@@ -140,11 +118,8 @@ class PageList extends Template implements BlockInterface
      * @param $id
      * @return string|null
      */
-    public function getHref($id)
+    public function getHref($id): ?string
     {
         return $this->_cmsPage->getPageUrl($id);
     }
-
-    protected $_template = "widget/page-list.phtml";
-
 }

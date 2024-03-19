@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="students" engine="innodb" resource="default">
+        <column name="id" xsi:type="smallint" unsigned="true" nullable="false" identity="true" comment="Student ID"/>
+        <column name="name" xsi:type="varchar" nullable="false" length="14" comment="Student Name"/>
+        <column name="last_name" xsi:type="varchar" nullable="false" length="14" comment="Student Lastname"/>
+        <column name="average_grade" xsi:type="float" nullable="true" default="0" comment="Student Avg. Grade"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <index referenceId="STUDENTS_NAME_LASTNAME" indexType="fulltext">
+            <column name="name"/>
+            <column name="last_name"/>
+        </index>
+    </table>
+</schema>
