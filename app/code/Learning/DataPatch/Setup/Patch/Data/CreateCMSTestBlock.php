@@ -19,25 +19,22 @@ class CreateCMSTestBlock implements
      * @var ModuleDataSetupInterface
      */
     private ModuleDataSetupInterface $moduleDataSetup;
-
-    /**
-     * @var PageRepositoryInterface
-     */
-    private PageRepositoryInterface $pageRepo;
+    private BlockInterfaceFactory $blockInterfaceFactory;
+    private BlockRepositoryInterface $blockRepository;
 
     /**
      * @param ModuleDataSetupInterface $moduleDataSetup
-     * @param PageRepositoryInterface $pageRepository
-     * @param PageInterfaceFactory $pageInterfaceFactory
+     * @param BlockInterfaceFactory $blockInterfaceFactory
+     * @param BlockRepositoryInterface $blockRepository
      */
     public function __construct(
         ModuleDataSetupInterface $moduleDataSetup,
-        PageRepositoryInterface  $pageRepository,
-        PageInterfaceFactory     $pageInterfaceFactory
+        BlockInterfaceFactory $blockInterfaceFactory,
+        BlockRepositoryInterface $blockRepository
     ) {
+        $this->blockInterfaceFactory = $blockInterfaceFactory;
+        $this->blockRepository = $blockRepository;
         $this->moduleDataSetup = $moduleDataSetup;
-        $this->pageRepository = $pageRepository;
-        $this->pageInterfaceFactory = $pageInterfaceFactory;
     }
 
     /**
@@ -48,10 +45,13 @@ class CreateCMSTestBlock implements
         $this->moduleDataSetup->getConnection()->startSetup();
 
         try {
-            /** @var PageInterface $page */
-            $page = $this->pageInterfaceFactory->create();
-            $page->setContent('test content')->setIdentifier('test')->setTitle('test tile');
-            $this->pageRepository->save($page);
+            /** @var BlockInterface $block */
+            $block = $this->blockInterfaceFactory->create();
+            $block->setTitle('Test');
+            $block->setContent('Hello world');
+            $block->setIdentifier('test');
+            $this->blockRepository->save($block);
+
         } catch (LocalizedException $e) {
             echo $e->getMessage();
         }
