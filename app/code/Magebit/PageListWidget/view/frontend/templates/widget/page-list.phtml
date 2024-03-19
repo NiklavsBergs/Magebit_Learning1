@@ -15,15 +15,20 @@
  */
 
 /** @var \Magebit\PageListWidget\Block\Widget\PageList $block */
+
+$title = $block->getTitle();
+$pages = $block->getChosenPages();
 ?>
 
-<h3><?php echo($block->getTitle())?></h3>
-
-<h3><?php $pages = $block->getChosenPages()?></h3>
+<h3><?= $title ?></h3>
 
 <ul>
     <?php foreach ($pages as $page): ?>
-        <li><a href="<?php echo $block->getHref($page->getId()); ?>"><?php echo $page->getTitle(); ?></a></li>
+        <li>
+            <a href="<?= $block->getHref($page->getId()); ?>">
+                <?= $page->getTitle(); ?>
+            </a>
+        </li>
     <?php endforeach; ?>
 </ul>
 
