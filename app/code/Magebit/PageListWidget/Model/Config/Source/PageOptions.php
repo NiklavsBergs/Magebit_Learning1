@@ -16,7 +16,7 @@
 
 declare(strict_types=1);
 
-namespace Magebit\PageListWidget\Model\Config\source;
+namespace Magebit\PageListWidget\Model\Config\Source;
 
 use Exception;
 use Magento\Cms\Api\PageRepositoryInterface;
