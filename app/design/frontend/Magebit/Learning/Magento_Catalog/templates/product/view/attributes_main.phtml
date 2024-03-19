@@ -1,30 +1,46 @@
 <?php
+/**
+ * This file is part of the Magebit package.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magebit Faq
+ * to newer versions in the future.
+ *
+ * @copyright Copyright (c) 2024 Magebit, Ltd. (https://magebit.com/)
+ * @license   GNU General Public License ("GPL") v3.0
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /** @var Magento\Catalog\Block\Product\View\Attributes $block */
+
+$viewModel = $block->getData('view_model');
+$attributes = $viewModel->getAdditionalAttributes($block);
+$shortDescription = $viewModel->getShortDescription($block);
 ?>
-<?php
-$_helper = $this->helper(Magento\Catalog\Helper\Output::class);
-$_product = $block->getProduct();
-?>
-<?php try {
-    if ($_additional = $block->getAdditionalData()) :?>
-        <div class="additional-attributes-main">
 
-            <ul>
-                <?php foreach ($_additional as $_data) : ?>
+<div class="additional-attributes-main">
 
-                    <?php if ($_data['code'] != 'short_description') :?>
+    <ul>
+        <?php foreach ($attributes as $attribute) : ?>
 
-                    <li><strong><?= $_data['label'], ': ' ?></strong><?= $_helper->productAttribute($_product, $_data['value'], $_data['code']) ?></li>
+            <?php if ($attribute['code'] != 'short_description') :?>
 
-                    <?php endif ?>
-                <?php endforeach; ?>
-            </ul>
+            <li>
+                <strong>
+                    <?= $attribute['label'], ': ' ?>
+                </strong>
+                <?= $attribute['value'] ?>
+            </li>
 
-            <div class="short-description">
-                <span><?= $_product->getShortDescription(); ?></span>
-            </div>
+            <?php endif ?>
+        <?php endforeach; ?>
+    </ul>
 
-        </div>
-    <?php endif;
-} catch (\Magento\Framework\Exception\LocalizedException $e) {
-} ?>
+    <div class="short-description">
+        <span><?= $shortDescription ?></span>
+    </div>
+
+</div>
