@@ -36,14 +36,13 @@ class PageList extends Template implements BlockInterface
      * @var PageRepositoryInterface
      */
     private PageRepositoryInterface $pageRepository;
+
     /**
      * @var SearchCriteriaBuilder
      */
     private SearchCriteriaBuilder $searchCriteriaBuilder;
 
     /**
-     * Cms page
-     *
      * @var Page
      */
     protected $_cmsPage;

@@ -48,7 +48,7 @@
 
             </parameter>
             <parameter name="chosen_pages" xsi:type="multiselect" required="true"
-                       visible="true" source_model="Magebit\PageListWidget\Model\PageOptions" sort_order="40">
+                       visible="true" source_model="Magebit\PageListWidget\Model\Config\source\PageOptions" sort_order="40">
                 <label>Selected pages</label>
                 <depends>
                     <parameter name="display_mode" value="specific" />

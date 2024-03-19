@@ -18,24 +18,37 @@ declare(strict_types=1);
 
 namespace Magebit\PageListWidget\Model\Config\source;
 
-use Magebit\PageListWidget\Block\Widget\PageList;
+use Exception;
+use Magento\Cms\Api\PageRepositoryInterface;
+use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Data\OptionSourceInterface;
+use Psr\Log\LoggerInterface;
 
 class PageOptions implements OptionSourceInterface
 {
     /**
-     * @var PageList
+     * @var LoggerInterface
      */
-    protected $pageListBlock;
+    protected LoggerInterface $_logger;
 
     /**
-     * PageOptions constructor.
-     * @param PageList $pageListBlock
+     * @var SearchCriteriaBuilder
      */
+    private SearchCriteriaBuilder $searchCriteriaBuilder;
+
+    /**
+     * @var PageRepositoryInterface
+     */
+    private PageRepositoryInterface $pageRepository;
+
     public function __construct(
-        PageList $pageListBlock
+        SearchCriteriaBuilder   $searchCriteriaBuilder,
+        PageRepositoryInterface $pageRepository,
+        LoggerInterface $logger
     ) {
-        $this->pageListBlock = $pageListBlock;
+        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
+        $this->pageRepository = $pageRepository;
+        $this->_logger = $logger;
     }
 
     /**
@@ -43,17 +56,24 @@ class PageOptions implements OptionSourceInterface
      *
      * @return array
      */
-    public function toOptionArray()
+    public function toOptionArray(): array
     {
-        $options = [];
+        try {
+            $searchCriteria = $this->searchCriteriaBuilder->create();
+            $pages = $this->pageRepository->getList($searchCriteria)->getItems();
 
-        $pages = $this->pageListBlock->getAllPages();
-        foreach ($pages as $page) {
-            $options[] = [
-                'value' => $page->getId(),
-                'label' => $page->getTitle()
-            ];
+            $options = [];
+
+            foreach ($pages as $page) {
+                $options[] = [
+                    'value' => $page->getId(),
+                    'label' => $page->getTitle()
+                ];
+            }
+            return $options;
+        } catch (Exception $e) {
+            $this->_logger->critical($e);
+            return [];
         }
-        return $options;
     }
 }
