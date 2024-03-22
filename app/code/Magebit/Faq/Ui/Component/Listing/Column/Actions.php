@@ -1,6 +1,7 @@
 <?php
 namespace Magebit\Faq\Ui\Component\Listing\Column;
 
+use Magento\Framework\Escaper;
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
 use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Ui\Component\Listing\Columns\Column;
@@ -19,6 +20,7 @@ class Actions extends Column {
         ContextInterface $context,
         UiComponentFactory $uiComponentFactory,
         private UrlInterface $urlBuilder,
+        private Escaper $escaper,
         array $components = [],
         array $data = []
     )
@@ -41,7 +43,16 @@ class Actions extends Column {
                     $item[$name]['edit'] = [
                         'href' => $this->getEditUrl($item),
                         'label' => __('Edit') ];
-                    $item[$name]['delete'] = ['href' => $this->urlBuilder->getUrl(self::URL_PATH_DELETE, ['id' => $item['id']]), 'label' => __('Delete') ];
+                    $title = $this->escaper->escapeHtml($item['id']);
+                    $item[$name]['delete'] = [
+                        'href' => $this->getDeleteUrl($item),
+                        'label' => __('Delete'),
+                        'confirm' => [
+                            'title' => __('Delete Question %1', $title),
+                            'message' => __('Are you sure you want to delete question with id %1', $title)
+                        ],
+                        'post' => true
+                    ];
                 }
             }
         }
@@ -51,5 +62,10 @@ class Actions extends Column {
     private function getEditUrl(array $item): string
     {
         return $this->urlBuilder->getUrl(self::URL_PATH_EDIT, ['id' => $item['id']]);
+    }
+
+    private function getDeleteUrl(array $item): string
+    {
+        return $this->urlBuilder->getUrl(self::URL_PATH_DELETE, ['id' => $item['id']]);
     }
 }
