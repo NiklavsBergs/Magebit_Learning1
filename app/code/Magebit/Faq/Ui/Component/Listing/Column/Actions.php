@@ -9,7 +9,11 @@ use Magento\Framework\UrlInterface;
 
 class Actions extends Column {
     /** Url path */
-    const URL_PATH_EDIT = 'faq/question/add';
+    const URL_PATH_EDIT = 'faq/question/edit';
+
+    /** Url path */
+    const URL_PATH_DELETE = 'faq/question/delete';
+
     /** @var UrlBuilder */
     protected $actionUrlBuilder;
     /** @var UrlInterface */
@@ -39,6 +43,7 @@ class Actions extends Column {
                 $name = $this->getData('name');
                 if (isset($item['id'])) {
                     $item[$name]['edit'] = ['href' => $this->urlBuilder->getUrl(self::URL_PATH_EDIT, ['id' => $item['id']]), 'label' => __('Edit') ];
+                    $item[$name]['delete'] = ['href' => $this->urlBuilder->getUrl(self::URL_PATH_DELETE, ['id' => $item['id']]), 'label' => __('Delete') ];
                 }
             }
         }
