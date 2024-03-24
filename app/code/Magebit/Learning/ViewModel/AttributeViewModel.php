@@ -19,7 +19,6 @@ declare(strict_types=1);
 namespace Magebit\Learning\ViewModel;
 
 use Exception;
-use Magento\Catalog\Model\ProductRepository;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Magento\Catalog\Block\Product\View;
 
@@ -28,9 +27,6 @@ class AttributeViewModel implements ArgumentInterface
     const ATTR_1 = 'dimensions';
     const ATTR_2 = 'color';
     const ATTR_3 = 'material';
-
-    public function __construct(private ProductRepository $productRepository)
-    {}
 
     public function getAttributes(View $block)
     {
