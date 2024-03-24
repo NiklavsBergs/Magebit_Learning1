@@ -14,11 +14,13 @@
  * file that was distributed with this source code.
  */
 
-/** @var Magento\Catalog\Block\Product\View\Attributes $block */
+/** @var Magento\Catalog\Block\Product\View $block */
 
 $viewModel = $block->getData('view_model');
 $attributes = $viewModel->getAdditionalAttributes($block);
 $shortDescription = $viewModel->getShortDescription($block);
+
+$all = $viewModel->getAttributes($block);
 ?>
 
 <div class="additional-attributes-main">
@@ -26,7 +28,7 @@ $shortDescription = $viewModel->getShortDescription($block);
     <ul>
         <?php foreach ($attributes as $attribute) : ?>
 
-            <?php if ($attribute['code'] != 'short_description') :?>
+<!--            --><?php //if ($attribute['code'] != 'short_description') :?>
 
             <li>
                 <strong>
@@ -35,7 +37,7 @@ $shortDescription = $viewModel->getShortDescription($block);
                 <?= $attribute['value'] ?>
             </li>
 
-            <?php endif ?>
+<!--            --><?php //endif ?>
         <?php endforeach; ?>
     </ul>
 
@@ -43,4 +45,5 @@ $shortDescription = $viewModel->getShortDescription($block);
         <span><?= $shortDescription ?></span>
     </div>
 
+<!--    <p>--><?php //echo(implode(' ', $all)); ?><!--</p>-->
 </div>
