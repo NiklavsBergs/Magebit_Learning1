@@ -25,9 +25,9 @@ use Magento\Catalog\Block\Product\View;
 
 class AttributeViewModel implements ArgumentInterface
 {
-    private string $ATTR_1 = 'dimensions';
-    private string $ATTR_2 = 'color';
-    private string $ATTR_3 = 'material';
+    const ATTR_1 = 'dimensions';
+    const ATTR_2 = 'color';
+    const ATTR_3 = 'material';
 
     public function __construct(private ProductRepository $productRepository)
     {}
@@ -51,19 +51,21 @@ class AttributeViewModel implements ArgumentInterface
             $attributes = $product->getAttributes();
 
             foreach($attributes as $attribute){
-                if($attribute->getAttributeCode() == $this->ATTR_1){
+                if($attribute->getAttributeCode() == self::ATTR_1){
                     $additionalAttributes[] = [
                         'label' => $attribute->getDefaultFrontendLabel(),
                         'value' => $attribute->getFrontend()->getValue($product)
                         ];
+                    continue;
                 }
-                if($attribute->getAttributeCode() == $this->ATTR_2){
+                if($attribute->getAttributeCode() == self::ATTR_2){
                     $additionalAttributes[] = [
                         'label' => $attribute->getDefaultFrontendLabel(),
                         'value' => $attribute->getFrontend()->getValue($product)
                     ];
+                    continue;
                 }
-                if($attribute->getAttributeCode() == $this->ATTR_3){
+                if($attribute->getAttributeCode() == self::ATTR_3){
                     $additionalAttributes[] = [
                         'label' => $attribute->getDefaultFrontendLabel(),
                         'value' => $attribute->getFrontend()->getValue($product)
