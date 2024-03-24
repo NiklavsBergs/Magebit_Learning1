@@ -53,6 +53,9 @@
                 <dataType>boolean</dataType>
                 <label translate="true">Question enabled</label>
                 <dataScope>status</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
             </settings>
             <formElements>
                 <checkbox>
@@ -76,6 +79,11 @@
                     <item name="dataScope" xsi:type="string">question</item>
                 </item>
             </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
         </field>
         <field name="answer">
             <argument name="data" xsi:type="array">
@@ -87,6 +95,11 @@
                     <item name="dataScope" xsi:type="string">answer</item>
                 </item>
             </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
         </field>
     </fieldset>
 </form>

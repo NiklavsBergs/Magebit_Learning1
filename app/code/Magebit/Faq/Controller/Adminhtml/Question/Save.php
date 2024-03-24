@@ -10,11 +10,6 @@ use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magebit\Faq\Model\QuestionFactory;
 
-/**
- * Class Save
- *
- * @package SyncIt\Brand\Controller\Adminhtml\Brand
- */
 class Save extends Action implements HttpPostActionInterface
 {
     public function __construct(
@@ -35,6 +30,9 @@ class Save extends Action implements HttpPostActionInterface
     {
         $resultRedirect = $this->resultRedirectFactory->create();
         $data = $this->getRequest()->getPostValue();
+
+        $redirectBack = $this->getRequest()->getParam('back', false);
+
         if ($data) {
             $model = $this->questionFactory->create();
 
@@ -42,12 +40,19 @@ class Save extends Action implements HttpPostActionInterface
                 $data['id'] = null;
             }
 
+            $data['updated_at'] = date('Y-m-d H:i:s');
+
             $model->setData($data);
 
             try {
                 $this->resource->save($model);
                 $this->messageManager->addSuccessMessage(__('You saved the question.'));
-                return $resultRedirect->setPath('*/*/');
+
+                if (!$redirectBack) {
+                    return $resultRedirect->setPath('*/*/');
+                }
+
+                return $resultRedirect->setPath('*/*/edit', ['id' => $model->getId()]);
             }
             catch (LocalizedException $e) {
                 $this->messageManager->addExceptionMessage($e);

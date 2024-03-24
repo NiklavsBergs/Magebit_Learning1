@@ -4,11 +4,6 @@ namespace Magebit\Faq\Block\Adminhtml\Question\Edit;
 
 use Magento\Framework\UrlInterface;
 
-/**
- * Class GenericButton
- *
- * @package SyncIt\Brand\Block\Adminhtml\Brand\Edit
- */
 abstract class Generic
 {
 

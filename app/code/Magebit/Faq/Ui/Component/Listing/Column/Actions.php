@@ -41,7 +41,9 @@ class Actions extends Column {
                     $item[$name]['edit'] = [
                         'href' => $this->getEditUrl($item),
                         'label' => __('Edit') ];
+
                     $title = $this->escaper->escapeHtml($item['id']);
+
                     $item[$name]['delete'] = [
                         'href' => $this->getDeleteUrl($item),
                         'label' => __('Delete'),
