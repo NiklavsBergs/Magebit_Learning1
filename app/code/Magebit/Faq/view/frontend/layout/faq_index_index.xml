@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="styles" />
+    <body>
+        <!-- Remove Compare Products Sidebar Block -->
+        <referenceBlock name="catalog.compare.sidebar" remove="true" />
+
+        <!-- Remove My Wish List Sidebar Block -->
+        <referenceBlock name="wishlist_sidebar" remove="true" />
+
+        <referenceBlock name="page.main.title">
+            <action method="setPagetitle">
+                <argument name="title" xsi:type="string">Frequently Asked Questions</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="content">
+            <block template="Magebit_Faq::question-list.phtml" as="faq">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Magebit\Faq\ViewModel\Questions</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+
+    </body>
+</page>
