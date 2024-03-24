@@ -1,4 +1,20 @@
 <?php
+/**
+ * This file is part of the Magebit package.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magebit Faq
+ * to newer versions in the future.
+ *
+ * @copyright Copyright (c) 2024 Magebit, Ltd. (https://magebit.com/)
+ * @license   GNU General Public License ("GPL") v3.0
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
 
 namespace Magebit\Faq\Controller\Adminhtml\Question;
 
@@ -8,11 +24,19 @@ use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\Controller\ResultInterface;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Ui\Component\MassAction\Filter;
 use Magebit\Faq\Model\ResourceModel\Question\CollectionFactory;
 
 class MassDisable extends Action implements HttpPostActionInterface
 {
+    /**
+     * @param Context $context
+     * @param QuestionResource $resource
+     * @param QuestionFactory $questionFactory
+     * @param CollectionFactory $collectionFactory
+     * @param Filter $filter
+     */
     public function __construct(
         Context $context,
         private QuestionResource $resource,
@@ -24,6 +48,10 @@ class MassDisable extends Action implements HttpPostActionInterface
         parent::__construct($context);
     }
 
+    /**
+     * @return ResultInterface
+     * @throws LocalizedException
+     */
     public function execute(): ResultInterface
     {
         $resultRedirect = $this->resultRedirectFactory->create();

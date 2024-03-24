@@ -1,19 +1,27 @@
 <?php
+/**
+ * This file is part of the Magebit package.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magebit Faq
+ * to newer versions in the future.
+ *
+ * @copyright Copyright (c) 2024 Magebit, Ltd. (https://magebit.com/)
+ * @license   GNU General Public License ("GPL") v3.0
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
 
 namespace Magebit\Faq\Ui\Component\Listing\Column;
 
-class Update extends \Magento\Ui\Component\Listing\Columns\Column
+use Magento\Ui\Component\Listing\Columns\Column;
+
+class Update extends Column
 {
-
-    /**
-     * @param \Magento\Framework\View\Element\UiComponent\ContextInterface $context
-     * @param \Magento\Framework\View\Element\UiComponentFactory $uiComponentFactory
-     * @param \Magento\Directory\Api\CountryInformationAcquirerInterface $countryInformation
-     * @param array $components
-     * @param array $data
-     */
-
-
     /**
      * Prepare Data Source
      *
