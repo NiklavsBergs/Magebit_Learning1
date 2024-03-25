@@ -19,31 +19,21 @@
 $viewModel = $block->getData('view_model');
 $attributes = $viewModel->getAdditionalAttributes($block);
 $shortDescription = $viewModel->getShortDescription($block);
-
-$all = $viewModel->getAttributes($block);
 ?>
 
 <div class="additional-attributes-main">
-
     <ul>
         <?php foreach ($attributes as $attribute) : ?>
-
-<!--            --><?php //if ($attribute['code'] != 'short_description') :?>
-
             <li>
                 <strong>
                     <?= $attribute['label'], ': ' ?>
                 </strong>
                 <?= $attribute['value'] ?>
             </li>
-
-<!--            --><?php //endif ?>
         <?php endforeach; ?>
     </ul>
 
     <div class="short-description">
         <span><?= $shortDescription ?></span>
     </div>
-
-<!--    <p>--><?php //echo(implode(' ', $all)); ?><!--</p>-->
 </div>
