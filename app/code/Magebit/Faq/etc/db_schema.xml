@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<!--
+/**
+* This file is part of the Magebit package.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade Magebit Faq
+* to newer versions in the future.
+*
+* @copyright Copyright (c) 2024 Magebit, Ltd. (https://magebit.com/)
+* @license   GNU General Public License ("GPL") v3.0
+*
+* For the full copyright and license information, please view the LICENSE
+* file that was distributed with this source code.
+*/
+-->
+
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table comment="magebit_faq_question Table" engine="innodb" name="magebit_faq_question" resource="default">
+        <column name="id" nullable="false" comment="Question ID" unsigned="true" identity="true" xsi:type="smallint"/>
+        <column name="question" nullable="false" comment="Question" xsi:type="text"/>
+        <column name="answer" nullable="false" comment="Answer" xsi:type="text"/>
+        <column name="status" nullable="false" comment="Question status" default="0" xsi:type="smallint"/>
+        <column name="position" nullable="false" comment="Question position" default="0" xsi:type="int"/>
+        <column name="updated_at" comment="Updated at" default="CURRENT_TIMESTAMP" on_update="true" xsi:type="timestamp"/>
+        <constraint referenceId="PRIMARY" xsi:type="primary">
+            <column name="id"/>
+        </constraint>
+    </table>
+</schema>

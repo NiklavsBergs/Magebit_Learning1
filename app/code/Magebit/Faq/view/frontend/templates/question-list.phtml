@@ -1,0 +1,31 @@
+<?php
+/** @var $block Template */
+/** @var $viewModel \Magebit\Faq\ViewModel\Questions */
+
+use Magento\Framework\View\Element\Template;
+use Magebit\Faq\ViewModel\Questions;
+
+$viewModel = $block->getData('view_model');
+$collection = $viewModel->getQuestions();
+?>
+
+<?php if(!$collection->count()): ?>
+    <p>There are no questions.</p>
+<?php else: ?>
+    <div class="faq" id="accordion" data-mage-init='{
+            "accordion":{
+                "active": [],
+                "collapsible": true,
+                "openedState": "active",
+                "multipleCollapsible": true
+            }}'>
+            <?php foreach($collection as $question): ?>
+                <div class="faq-title" data-role="collapsible">
+                    <div data-role="trigger">
+                        <span><?= $question->getdata('question'); ?></span>
+                    </div>
+                </div>
+                <div class="faq-content" data-role="content"><?= $question->getdata('answer'); ?></div>
+            <?php endforeach; ?>
+    </div>
+<?php endif; ?>
