@@ -28,12 +28,6 @@ class AttributeViewModel implements ArgumentInterface
     const ATTR_2 = 'color';
     const ATTR_3 = 'material';
 
-    public function getAttributes(View $block)
-    {
-        $product = $block->getProduct();
-        return $product->getAttributes();
-    }
-
     /**
      * @param View $block
      * @return array
