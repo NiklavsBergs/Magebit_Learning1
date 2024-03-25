@@ -14,7 +14,7 @@
  * file that was distributed with this source code.
  */
 
-/** @var Magento\Catalog\Block\Product\View\Attributes $block */
+/** @var Magento\Catalog\Block\Product\View $block */
 
 $viewModel = $block->getData('view_model');
 $attributes = $viewModel->getAdditionalAttributes($block);
@@ -22,25 +22,18 @@ $shortDescription = $viewModel->getShortDescription($block);
 ?>
 
 <div class="additional-attributes-main">
-
     <ul>
         <?php foreach ($attributes as $attribute) : ?>
-
-            <?php if ($attribute['code'] != 'short_description') :?>
-
             <li>
                 <strong>
                     <?= $attribute['label'], ': ' ?>
                 </strong>
                 <?= $attribute['value'] ?>
             </li>
-
-            <?php endif ?>
         <?php endforeach; ?>
     </ul>
 
     <div class="short-description">
         <span><?= $shortDescription ?></span>
     </div>
-
 </div>

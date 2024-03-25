@@ -20,28 +20,60 @@ namespace Magebit\Learning\ViewModel;
 
 use Exception;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
-use Magento\Catalog\Block\Product\View\Attributes;
+use Magento\Catalog\Block\Product\View;
 
 class AttributeViewModel implements ArgumentInterface
 {
+    const ATTR_1 = 'dimensions';
+    const ATTR_2 = 'color';
+    const ATTR_3 = 'material';
+
     /**
-     * @param Attributes $block
+     * @param View $block
      * @return array
      */
-    public function getAdditionalAttributes(Attributes $block): array
+    public function getAdditionalAttributes(View $block): array
     {
         try {
-            return $block->getAdditionalData();
+            $additionalAttributes = [];
+
+            $product = $block->getProduct();
+            $attributes = $product->getAttributes();
+
+            foreach($attributes as $attribute){
+                if($attribute->getAttributeCode() == self::ATTR_1){
+                    $additionalAttributes[] = [
+                        'label' => $attribute->getDefaultFrontendLabel(),
+                        'value' => $attribute->getFrontend()->getValue($product)
+                        ];
+                    continue;
+                }
+                if($attribute->getAttributeCode() == self::ATTR_2){
+                    $additionalAttributes[] = [
+                        'label' => $attribute->getDefaultFrontendLabel(),
+                        'value' => $attribute->getFrontend()->getValue($product)
+                    ];
+                    continue;
+                }
+                if($attribute->getAttributeCode() == self::ATTR_3){
+                    $additionalAttributes[] = [
+                        'label' => $attribute->getDefaultFrontendLabel(),
+                        'value' => $attribute->getFrontend()->getValue($product)
+                    ];
+                }
+            }
+
+            return $additionalAttributes;
         } catch (Exception $e) {
             return [];
         }
     }
 
     /**
-     * @param Attributes $block
+     * @param View $block
      * @return string
      */
-    public function getShortDescription(Attributes $block): string
+    public function getShortDescription(View $block): string
     {
         $product = $block->getProduct();
 

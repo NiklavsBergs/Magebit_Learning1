@@ -28,7 +28,7 @@
 
         <referenceContainer name="product.info.main">
             <container name="product.info.attributes" as="infoattributes" label="Product View Info Attributes" after="product.info.price">
-                <block class="Magento\Catalog\Block\Product\View\Attributes" name="product.main.attributes" template="Magento_Catalog::product/view/attributes_main.phtml" >
+                <block class="Magento\Catalog\Block\Product\View" name="product.main.attributes" template="Magento_Catalog::product/view/attributes_main.phtml" >
                     <arguments>
                         <argument
                             name="view_model"
