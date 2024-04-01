@@ -16,7 +16,7 @@
 
 declare(strict_types=1);
 
-namespace Magebit\Faq\Block\Adminhtml\Question\Edit;
+namespace Magebit\Faq\Ui\Component\Form\Button;
 
 use Magento\Framework\UrlInterface;
 

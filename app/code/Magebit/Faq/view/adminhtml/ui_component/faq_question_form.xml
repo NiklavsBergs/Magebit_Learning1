@@ -31,8 +31,8 @@
 
     <settings>
         <buttons>
-            <button name="save" class="Magebit\Faq\Block\Adminhtml\Question\Edit\Save"/>
-            <button name="back" class="Magebit\Faq\Block\Adminhtml\Question\Edit\Back"/>
+            <button name="save" class="Magebit\Faq\Ui\Component\Form\Button\Save"/>
+            <button name="back" class="Magebit\Faq\Ui\Component\Form\Button\Back"/>
         </buttons>
         <deps>
             <dep>faq_question_form.magebit_faq_question_form_data_source</dep>
