@@ -22,6 +22,15 @@ use Magento\Ui\Component\Listing\Columns\Column;
 
 class Update extends Column
 {
+
+    /**
+     * @var array|string[]
+     */
+    protected array $status = [
+        '0' => 'Disabled',
+        '1' => 'Enabled'
+    ];
+
     /**
      * Prepare Data Source
      *
@@ -30,12 +39,9 @@ class Update extends Column
      */
     public function prepareDataSource(array $dataSource)
     {
-        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-        $blockInstance = $objectManager->get('Magebit\Faq\Block\Create');
-        $status = $blockInstance->getStatus();
         if (isset($dataSource['data']['items'])) {
             foreach ($dataSource['data']['items'] as & $item) {
-                $item['status'] = $status[$item['status']];
+                $item['status'] = $this->status[$item['status']];
             }
         }
         return $dataSource;

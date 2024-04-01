@@ -16,22 +16,18 @@
 
 declare(strict_types=1);
 
-namespace Magebit\Faq\ViewModel;
+use Magento\Framework\Api\SearchResultsInterface;
 
-use Magebit\Faq\Model\ResourceModel\Question\Collection;
-use Magebit\Faq\Service\QuestionProvider;
-use Magento\Framework\View\Element\Block\ArgumentInterface;
-
-class Questions implements ArgumentInterface
+interface QuestionSearchResultInterface extends SearchResultsInterface
 {
+    /**
+     * @return mixed
+     */
+    public function getItems();
 
     /**
-     * @param QuestionProvider $questionProvider
+     * @param array $items
+     * @return mixed
      */
-    public function __construct(private QuestionProvider $questionProvider)
-    {}
-    public function getQuestions()
-    {
-        return $this->questionProvider->getQuestions();
-    }
+    public function setItems(array $items);
 }

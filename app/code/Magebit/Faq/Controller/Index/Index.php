@@ -23,13 +23,17 @@ use Magento\Framework\View\Result\PageFactory;
 
 class Index implements HttpGetActionInterface
 {
+    protected $pageFactory;
+
     /**
      * @param PageFactory $pageFactory
      */
     public function __construct(
-        private PageFactory $pageFactory
+        PageFactory $pageFactory,
     )
-    {}
+    {
+        $this->pageFactory = $pageFactory;
+    }
     public function execute()
     {
         $page = $this->pageFactory->create();

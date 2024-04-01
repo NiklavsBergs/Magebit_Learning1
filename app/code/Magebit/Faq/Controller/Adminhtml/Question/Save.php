@@ -18,7 +18,7 @@ declare(strict_types=1);
 
 namespace Magebit\Faq\Controller\Adminhtml\Question;
 
-use Magebit\Faq\Model\ResourceModel\Question as QuestionResource;
+use Magebit\Faq\Api\QuestionRepositoryInterface;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Action\HttpPostActionInterface;
@@ -29,15 +29,27 @@ use Magebit\Faq\Model\QuestionFactory;
 class Save extends Action implements HttpPostActionInterface
 {
     /**
+     * @var QuestionRepositoryInterface
+     */
+    private QuestionRepositoryInterface $questionRepository;
+
+    /**
+     * @var QuestionFactory
+     */
+    private QuestionFactory $questionFactory;
+
+    /**
      * @param Context $context
-     * @param QuestionResource $resource
      * @param QuestionFactory $questionFactory
+     * @param QuestionRepositoryInterface $questionRepository
      */
     public function __construct(
         Context $context,
-        private QuestionResource $resource,
-        private QuestionFactory $questionFactory
+        QuestionFactory $questionFactory,
+        QuestionRepositoryInterface $questionRepository,
     ) {
+        $this->questionRepository=$questionRepository;
+        $this->questionFactory=$questionFactory;
         parent::__construct($context);
     }
 
@@ -66,7 +78,7 @@ class Save extends Action implements HttpPostActionInterface
             $model->setData($data);
 
             try {
-                $this->resource->save($model);
+                $this->questionRepository->save($model);
                 $this->messageManager->addSuccessMessage(__('You saved the question.'));
 
                 if (!$redirectBack) {

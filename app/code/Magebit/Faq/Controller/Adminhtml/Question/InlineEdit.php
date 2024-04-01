@@ -18,6 +18,7 @@ declare(strict_types=1);
 
 namespace Magebit\Faq\Controller\Adminhtml\Question;
 
+use Magebit\Faq\Api\QuestionRepositoryInterface;
 use Magebit\Faq\Model\ResourceModel\Question as QuestionResource;
 use Magebit\Faq\Model\ResourceModel\Question\CollectionFactory;
 use Magento\Backend\App\Action;
@@ -30,19 +31,27 @@ class InlineEdit extends Action implements HttpPostActionInterface
 {
 
     /**
+     * @var QuestionRepositoryInterface
+     */
+    private QuestionRepositoryInterface $questionRepository;
+
+    /**
+     * @var JsonFactory
+     */
+    private JsonFactory $resultJsonFactory;
+
+    /**
      * @param Context $context
      * @param JsonFactory $resultJsonFactory
-     * @param QuestionResource $resource
-     * @param CollectionFactory $collectionFactory
-     * @param QuestionFactory $questionFactory
+     * @param QuestionRepositoryInterface $questionRepository
      */
     public function __construct(
         Action\Context $context,
-        private JsonFactory $resultJsonFactory,
-        private QuestionResource $resource,
-        private CollectionFactory $collectionFactory,
-        private QuestionFactory $questionFactory,
+        JsonFactory $resultJsonFactory,
+        QuestionRepositoryInterface $questionRepository
     ) {
+        $this->questionRepository=$questionRepository;
+        $this->resultJsonFactory=$resultJsonFactory;
         parent::__construct($context);
     }
 
@@ -70,11 +79,10 @@ class InlineEdit extends Action implements HttpPostActionInterface
         }
 
         try{
-            foreach (array_keys($postItems) as $questionId) {
-                $model = $this->questionFactory->create();
-                $this->resource->load($model, $questionId);
-                $model->setData($postItems[$questionId]);
-                $this->resource->save($model);
+            foreach (array_keys($postItems) as $qId) {
+                $question = $this->questionRepository->getById($qId);
+                $question->setData($postItems[$qId]);
+                $this->questionRepository->save($question);
             }
         }catch (\Throwable $exception){
             return $resultJson->setData(
