@@ -16,22 +16,29 @@
 
 declare(strict_types=1);
 
-namespace Magebit\Faq\ViewModel;
+namespace Magebit\Faq\Ui\Component\Form\Button;
 
-use Magebit\Faq\Model\ResourceModel\Question\Collection;
-use Magebit\Faq\Service\QuestionProvider;
-use Magento\Framework\View\Element\Block\ArgumentInterface;
+use Magento\Framework\UrlInterface;
 
-class Questions implements ArgumentInterface
+abstract class Generic
 {
+    /**
+     * @param UrlInterface $url
+     */
+    public function __construct(
+        private UrlInterface $url
+    )
+    {}
 
     /**
-     * @param QuestionProvider $questionProvider
+     * Generate url by route and parameters
+     *
+     * @param  string $route
+     * @param  array  $params
+     * @return string
      */
-    public function __construct(private QuestionProvider $questionProvider)
-    {}
-    public function getQuestions()
+    public function getUrl(string $route = '', array $params = []): string
     {
-        return $this->questionProvider->getQuestions();
+        return $this->url->getUrl($route, $params);
     }
 }

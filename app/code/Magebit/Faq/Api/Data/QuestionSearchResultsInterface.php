@@ -16,29 +16,18 @@
 
 declare(strict_types=1);
 
-namespace Magebit\Faq\Block\Adminhtml\Question\Edit;
+use Magento\Framework\Api\SearchResultsInterface;
 
-use Magento\Framework\UrlInterface;
-
-abstract class Generic
+interface QuestionSearchResultInterface extends SearchResultsInterface
 {
     /**
-     * @param UrlInterface $url
+     * @return mixed
      */
-    public function __construct(
-        private UrlInterface $url
-    )
-    {}
+    public function getItems();
 
     /**
-     * Generate url by route and parameters
-     *
-     * @param  string $route
-     * @param  array  $params
-     * @return string
+     * @param array $items
+     * @return mixed
      */
-    public function getUrl(string $route = '', array $params = []): string
-    {
-        return $this->url->getUrl($route, $params);
-    }
+    public function setItems(array $items);
 }

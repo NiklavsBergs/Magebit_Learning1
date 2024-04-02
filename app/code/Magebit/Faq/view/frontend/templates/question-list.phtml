@@ -1,12 +1,7 @@
 <?php
-/** @var $block Template */
-/** @var $viewModel \Magebit\Faq\ViewModel\Questions */
+/** @var $block \Magebit\Faq\Block\QuestionList */
 
-use Magento\Framework\View\Element\Template;
-use Magebit\Faq\ViewModel\Questions;
-
-$viewModel = $block->getData('view_model');
-$collection = $viewModel->getQuestions();
+$collection = $block->getQuestions();
 ?>
 
 <?php if(!$collection->count()): ?>

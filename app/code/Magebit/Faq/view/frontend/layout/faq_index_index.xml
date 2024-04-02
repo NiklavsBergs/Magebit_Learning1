@@ -29,11 +29,7 @@
             </action>
         </referenceBlock>
         <referenceBlock name="content">
-            <block template="Magebit_Faq::question-list.phtml" as="faq">
-                <arguments>
-                    <argument name="view_model" xsi:type="object">Magebit\Faq\ViewModel\Questions</argument>
-                </arguments>
-            </block>
+            <block class="Magebit\Faq\Block\QuestionList" template="Magebit_Faq::question-list.phtml" as="faq"/>
         </referenceBlock>
 
     </body>

@@ -18,34 +18,38 @@ declare(strict_types=1);
 
 namespace Magebit\Faq\Controller\Adminhtml\Question;
 
-use Magebit\Faq\Model\QuestionFactory;
-use Magebit\Faq\Model\ResourceModel\Question as QuestionResource;
-use Magebit\Faq\Model\ResourceModel\Question\CollectionFactory;
+use Magebit\Faq\Api\QuestionRepositoryInterface;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\LocalizedException;
-use Magento\Ui\Component\MassAction\Filter;
+use Magento\Framework\Api\SearchCriteriaBuilder;
 
 class MassDelete extends Action implements HttpPostActionInterface
 {
+    /**
+     * @var QuestionRepositoryInterface
+     */
+    private QuestionRepositoryInterface $questionRepository;
+    /**
+     * @var SearchCriteriaBuilder
+     */
+    private SearchCriteriaBuilder $searchCriteriaBuilder;
 
     /**
      * @param Context $context
-     * @param QuestionResource $resource
-     * @param QuestionFactory $questionFactory
-     * @param CollectionFactory $collectionFactory
-     * @param Filter $filter
+     * @param QuestionRepositoryInterface $questionRepository
+     * @param SearchCriteriaBuilder $searchCriteriaBuilder
      */
     public function __construct(
         Context $context,
-        private QuestionResource $resource,
-        private QuestionFactory $questionFactory,
-        private CollectionFactory $collectionFactory,
-        private Filter $filter
+        QuestionRepositoryInterface $questionRepository,
+        SearchCriteriaBuilder $searchCriteriaBuilder
     )
     {
+        $this->questionRepository=$questionRepository;
+        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         parent::__construct($context);
     }
 
@@ -64,8 +68,8 @@ class MassDelete extends Action implements HttpPostActionInterface
         }
         // For select all
         else if($this->getRequest()->getParam('excluded')){
-            $collection = $this->filter->getCollection($this->collectionFactory->create());
-            $qIds = $collection->getAllIds();
+            $questions = $this->questionRepository->getList($this->searchCriteriaBuilder->create());
+            $qIds = $questions->getAllIds();
         }
         else{
             $this->messageManager->addErrorMessage(__('We can\'t find questions to delete'));
@@ -74,9 +78,8 @@ class MassDelete extends Action implements HttpPostActionInterface
 
         try {
             foreach ($qIds as $qId){
-                $model = $this->questionFactory->create();
-                $this->resource->load($model, $qId);
-                $this->resource->delete($model);
+
+                $this->questionRepository->deleteById($qId);
             }
 
             $this->messageManager->addSuccessMessage(__('The questions have been deleted'));

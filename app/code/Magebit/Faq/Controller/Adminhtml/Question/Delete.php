@@ -18,28 +18,29 @@ declare(strict_types=1);
 
 namespace Magebit\Faq\Controller\Adminhtml\Question;
 
-
-use Magebit\Faq\Model\QuestionFactory;
+use Magebit\Faq\Api\QuestionRepositoryInterface;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\Controller\ResultInterface;
-use Magebit\Faq\Model\ResourceModel\Question as QuestionResource;
 
 class Delete extends Action implements HttpPostActionInterface
 {
+    /**
+     * @var QuestionRepositoryInterface
+     */
+    private QuestionRepositoryInterface $questionRepository;
 
     /**
      * @param Context $context
-     * @param QuestionResource $resource
-     * @param QuestionFactory $questionFactory
+     * @param QuestionRepositoryInterface $questionRepository
      */
     public function __construct(
         Context $context,
-        private QuestionResource $resource,
-        private QuestionFactory $questionFactory
+        QuestionRepositoryInterface $questionRepository,
     )
     {
+        $this->questionRepository=$questionRepository;
         parent::__construct($context);
     }
 
@@ -55,12 +56,8 @@ class Delete extends Action implements HttpPostActionInterface
             return $resultRedirect->setPath('*/*/');
         }
 
-        $model = $this->questionFactory->create();
-
         try {
-            $this->resource->load($model, $qId);
-            $this->resource->delete($model);
-
+            $this->questionRepository->deleteById($qId);
             $this->messageManager->addSuccessMessage(__('The question has been deleted'));
         }catch (\Throwable $exception){
             $this->messageManager->addErrorMessage($exception->getMessage());
