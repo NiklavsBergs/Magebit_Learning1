@@ -58,3 +58,5 @@ pub/media/*
 !pub/errors
 /.stgin
 !sonar-project.properties
+
+/auth.json
