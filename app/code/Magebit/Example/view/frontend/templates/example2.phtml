@@ -1,0 +1,30 @@
+<?php declare(strict_types=1);
+
+use Hyva\Theme\Model\ViewModelRegistry;
+
+/** @var ViewModelRegistry $viewModels */
+
+
+?>
+
+<div x-data="example()" x-init="init" x-on:private-content-loaded.window="load">
+    <button x-on:click="reload"> Reload data </button>
+</div>
+
+<script>
+    function example() {
+        return {
+            init: function () {
+                console.log('init');
+            },
+            load: function ($event) {
+                console.log('load', $event.detail.data)
+            },
+            reload: function () {
+                window.localStorage.setItem('private_content_version', '')
+                window.dispatchEvent(new CustomEvent('reload-customer-section-data'))
+            }
+        }
+    }
+</script>
+

@@ -1,0 +1,46 @@
+<?php declare(strict_types=1);
+
+use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\HeroiconsSolid;
+use Magebit\Example\ViewModel\ContactDetails;
+use Magebit\Example\ViewModel\ProductImages;
+
+/** @var ViewModelRegistry $viewModels */
+/** @var ContactDetails $contactDetails */
+$productImagesModel = $viewModels->require(ProductImages::class);
+$productImages = $productImagesModel->getImages();
+$heroiconsSolid = $viewModels->require(HeroiconsSolid::class);
+
+?>
+
+<div
+    x-data='{
+    selected: 0,
+    images: <?= json_encode($productImages) ?>
+}'
+
+    class="max-w-screen-sm"
+>
+
+    <template x-for="(image, index) in images">
+        <figure class="space-y-2" x-show="selected === index">
+            <img
+                :key="index"
+                class="h-64 w-full object-cover object-center" :src="image.src" :alt="image.alt">
+
+            <figcaption x-text="image.caption" class="text-xs text-gray-600"></figcaption>
+        </figure>
+    </template>
+
+
+    <div class="w-full flex items-center justify-end space-x-2 text-indigo-600 text-xs mt-4">
+        <button aria-label="Previous Image" class="p-1 focus:outline-none focus:shadow-outline rounded" :class="{ 'text-gray-400' : selected === 0 }" @click="selected > 0 ? selected-- : null">
+            <?= $heroiconsSolid->chevronLeftHtml('', 35, 35) ?>
+        </button>
+        <button aria-label="Next Image" class="p-1 focus:outline-none focus:shadow-outline rounded" :class="{ 'text-gray-400' : selected === (images.length - 1) }" @click="selected < (images.length - 1) ? selected ++ : null">
+            <?= $heroiconsSolid->chevronRightHtml('', 35, 35) ?>
+        </button>
+    </div>
+
+</div>
+

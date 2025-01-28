@@ -1,0 +1,14 @@
+<?php declare(strict_types=1);
+
+use Hyva\Theme\Model\ViewModelRegistry;
+use Magento\Framework\View\Element\Template;
+
+/** @var ViewModelRegistry $viewModels */
+/** @var Template $block */
+?>
+
+<div class="example prose">
+    <?= $block->getChildHtml('cms-block') ?>
+</div>
+
+
