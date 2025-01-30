@@ -369,7 +369,8 @@ return [
         'Mollie_HyvaCompatibility' => 1,
         'PayPal_Braintree' => 1,
         'PayPal_BraintreeGraphQl' => 1,
-        'Temando_ShippingRemover' => 1
+        'Temando_ShippingRemover' => 1,
+        'Zinrelo_LoyaltyRewards' => 1
     ],
     'system' => [
         'default' => [

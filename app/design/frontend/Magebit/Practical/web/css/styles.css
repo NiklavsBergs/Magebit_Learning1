@@ -153,7 +153,7 @@ html,
   /* 3 */
   tab-size: 4;
   /* 3 */
-  font-family: Segoe UI, Helvetica Neue, Arial, sans-serif;
+  font-family: Raleway, Arial, sans-serif;
   /* 4 */
   font-feature-settings: normal;
   /* 5 */
@@ -4088,6 +4088,10 @@ a.pagebuilder-button-secondary:focus, button.pagebuilder-button-secondary:focus,
   max-width: 1536px;
 }
 
+.max-w-screen-sm {
+  max-width: 640px;
+}
+
 .max-w-xl {
   max-width: 36rem;
 }
@@ -4458,6 +4462,12 @@ a.pagebuilder-button-secondary:focus, button.pagebuilder-button-secondary:focus,
 
 .gap-y-4 {
   row-gap: 1rem;
+}
+
+.space-x-2 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(0.5rem * var(--tw-space-x-reverse));
+  margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .space-x-4 > :not([hidden]) ~ :not([hidden]) {
@@ -4945,10 +4955,6 @@ a.pagebuilder-button-secondary:focus, button.pagebuilder-button-secondary:focus,
   padding: 1rem;
 }
 
-.p-42 {
-  padding: 10.5rem;
-}
-
 .p-6 {
   padding: 1.5rem;
 }
@@ -5357,6 +5363,11 @@ a.pagebuilder-button-secondary:focus, button.pagebuilder-button-secondary:focus,
 .text-green-700 {
   --tw-text-opacity: 1;
   color: rgb(4 120 87 / var(--tw-text-opacity));
+}
+
+.text-indigo-600 {
+  --tw-text-opacity: 1;
+  color: rgb(79 70 229 / var(--tw-text-opacity));
 }
 
 .text-orange-400 {

@@ -9,8 +9,19 @@ const hyvaModules = require('@hyva-themes/hyva-modules');
 module.exports = hyvaModules.mergeTailwindConfig({
   theme: {
     extend: {
+      screens: {
+        'sm': '640px',
+        // => @media (min-width: 640px) { ... }
+        'md': '768px',
+        // => @media (min-width: 768px) { ... }
+        'lg': '1024px',
+        // => @media (min-width: 1024px) { ... }
+        'xl': '1280px',
+        // => @media (min-width: 1280px) { ... }
+        '2xl': '1536px' // => @media (min-width: 1536px) { ... }
+      },
       fontFamily: {
-        sans: ["Segoe UI", "Helvetica Neue", "Arial", "sans-serif"]
+        sans: ["Raleway", "Arial", "sans-serif"]
       },
       colors: {
         primary: {
@@ -96,9 +107,6 @@ module.exports = hyvaModules.mergeTailwindConfig({
       container: {
         center: true,
         padding: spacing["6"]
-      },
-      padding: {
-        '42': '10.5rem'
       }
     }
   },
@@ -109,15 +117,11 @@ module.exports = hyvaModules.mergeTailwindConfig({
     '../../**/*.phtml',
     '../../*/layout/*.xml',
     '../../*/page_layout/override/base/*.xml',
-
-    '../../../../../../../app/design/frontend/Magebit/HyvaTheme/Magento_Theme/**/*.phtml',
-    '../../../../../../../app/design/frontend/Magebit/HyvaTheme/Magento_Theme/*/layout/*.xml',
-
     // parent theme in Vendor (if this is a child-theme)
     '../../../../../../../vendor/hyva-themes/magento2-default-theme/**/*.phtml',
     '../../../../../../../vendor/hyva-themes/magento2-default-theme/*/layout/*.xml',
     '../../../../../../../vendor/hyva-themes/magento2-default-theme/*/page_layout/override/base/*.xml',
     // app/code phtml files (if need tailwind classes from app/code modules)
-    //'../../../../../../../app/code/**/*.phtml',
-  ],
+    '../../../../../../../app/code/**/*.phtml',
+  ]
 });
