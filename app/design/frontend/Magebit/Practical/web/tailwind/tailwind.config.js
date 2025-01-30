@@ -123,5 +123,9 @@ module.exports = hyvaModules.mergeTailwindConfig({
     '../../../../../../../vendor/hyva-themes/magento2-default-theme/*/page_layout/override/base/*.xml',
     // app/code phtml files (if need tailwind classes from app/code modules)
     '../../../../../../../app/code/**/*.phtml',
+    '../../../../../../../app/design/frontend/Magebit/Practical/**/*.phtml',
+    '../../../../../../../app/design/frontend/Magebit/Practical/*/layout/*.xml',
+    '../../../../../../../app/design/frontend/Magebit/Practical/*/page_layout/override/base/*.xml',
+
   ]
 });

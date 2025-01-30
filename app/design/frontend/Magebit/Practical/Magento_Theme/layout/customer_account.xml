@@ -4,21 +4,20 @@
     <update handle="customer_account"/>
     <body>
         <referenceContainer name="page.top">
-            <block class="Magento\Theme\Block\Html\Breadcrumbs" name="breadcrumbs" as="breadcrumbs"/>
             <block class="Magento\Theme\Block\Html\Breadcrumbs" name="breadcrumbs" as="breadcrumbs">
                 <action method="addCrumb">
                     <argument name="crumbName" xsi:type="string">home</argument>
                     <argument name="crumbInfo" xsi:type="array">
-                        <item name="title" xsi:type="string">Home</item>
-                        <item name="label" xsi:type="string">Home</item>
+                        <item name="title" xsi:type="string">Sākums</item>
+                        <item name="label" xsi:type="string">Sākums</item>
                         <item name="link" xsi:type="string">{{base url}}</item>
                     </argument>
                 </action>
                 <action method="addCrumb">
                     <argument name="crumbName" xsi:type="string">account</argument>
                     <argument name="crumbInfo" xsi:type="array">
-                        <item name="title" xsi:type="string">My Account</item>
-                        <item name="label" xsi:type="string">My Account</item>
+                        <item name="title" xsi:type="string">Mans profils</item>
+                        <item name="label" xsi:type="string">Mans profils</item>
                     </argument>
                 </action>
             </block>
@@ -26,14 +25,17 @@
 
         <referenceBlock name="breadcrumbs">
             <action method="setTemplate">
-                <argument name="template" xsi:type="string">Magebit_Example::html/breadcrumbs.phtml</argument>
+                <argument name="template" xsi:type="string">Magento_Theme::html/breadcrumbs.phtml</argument>
             </action>
         </referenceBlock>
 
         <referenceBlock name="sidebar.main.account_nav">
             <action method="setTemplate">
-                <argument name="template" xsi:type="string">Magebit_Example::html/collapsible.phtml</argument>
+                <argument name="template" xsi:type="string">Magento_Theme::html/collapsible.phtml</argument>
             </action>
         </referenceBlock>
+
+        <referenceBlock name="customer-account-navigation-delimiter-2" remove="true" />
+
     </body>
 </page>

@@ -20,8 +20,7 @@ use Magento\Framework\View\Element\Template;
 $heroicons = $viewModels->require(HeroiconsOutline::class);
 ?>
 
-<div class="block <?= $escaper->escapeHtmlAttr($block->getBlockCss()) ?> card filter-option py-4 px-8 mb-6">
-    <div :class="{ 'hidden': !blockOpen }" class="delimiter border-b border-container w-full mt-4 mb-3 hidden md:block"></div>
+<div class="block <?= $escaper->escapeHtmlAttr($block->getBlockCss()) ?> bg-gray-200 filter-option">
     <div class="content <?= $escaper->escapeHtmlAttr($block->getBlockCss()) ?>-content hidden md:block"
          :class="{ 'hidden': !blockOpen }"
          id="<?= $escaper->escapeHtmlAttr($block->getBlockCss()) ?>"
