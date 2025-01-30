@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<page layout="3columns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <link rel="preconnect" src="https://fonts.googleapis.com" src_type="url"/>
+        <link rel="preconnect" src="https://fonts.gstatic.com" src_type="url"/>
+        <link src="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet" src_type="url"/>
+    </head>
+</page>
