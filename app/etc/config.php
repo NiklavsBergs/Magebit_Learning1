@@ -364,13 +364,13 @@ return [
         'MageMastery_FirstPage' => 1,
         'Magebit_Example' => 1,
         'Magebit_PageListWidget' => 1,
+        'Mageplaza_Core' => 1,
         'Hyva_Checkout' => 1,
         'Mollie_Payment' => 0,
         'Mollie_HyvaCompatibility' => 1,
         'PayPal_Braintree' => 1,
         'PayPal_BraintreeGraphQl' => 1,
-        'Temando_ShippingRemover' => 1,
-        'Zinrelo_LoyaltyRewards' => 1
+        'Temando_ShippingRemover' => 1
     ],
     'system' => [
         'default' => [

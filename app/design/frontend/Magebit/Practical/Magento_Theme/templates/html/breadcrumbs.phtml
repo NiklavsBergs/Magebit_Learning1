@@ -8,12 +8,18 @@
 
 declare(strict_types=1);
 
+use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\HeroiconsSolid;
 use Magento\Theme\Block\Html\Breadcrumbs;
 use Magento\Framework\Escaper;
 
 /** @var Escaper $escaper */
 /** @var Breadcrumbs $block */
 /** @var array[] $crumbs */
+/** @var ViewModelRegistry $viewModels */
+
+/** @var HeroiconsSolid $heroicons */
+$heroicons = $viewModels->require(HeroiconsSolid::class);
 
 ?>
 <?php if ($crumbs && is_array($crumbs)): ?>
@@ -23,7 +29,9 @@ use Magento\Framework\Escaper;
             <?php foreach ($crumbs as $crumbName => $crumbInfo): ?>
                 <li class="item flex <?= $escaper->escapeHtmlAttr($crumbName) ?>">
                 <?php if (!$crumbInfo['first']): ?>
-                    <span aria-hidden="true" class="separator text-primary-lighter px-2">/</span>
+                    <span aria-hidden="true" class="separator px-2 mt-0.5">
+                        <?= $heroicons->chevronRightHtml('text-gray-500', 16, 16, ['aria-hidden' => 'true']) ?>
+                    </span>
                 <?php endif; ?>
                 <?php if ($crumbInfo['link']): ?>
                     <a href="<?= $escaper->escapeUrl($crumbInfo['link']) ?>"

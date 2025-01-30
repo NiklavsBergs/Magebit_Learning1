@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ccf418c09e09fb8b56c2ec4de08f36cd",
+    "content-hash": "8d7a8e4aeda821b2d62a11e7a6c8ead6",
     "packages": [
         {
             "name": "2tvenom/cborencode",
@@ -18890,6 +18890,91 @@
             "time": "2023-08-25T12:52:21+00:00"
         },
         {
+            "name": "mageplaza/magento-2-latvian-language-pack",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mageplaza/magento-2-latvian-language-pack.git",
+                "reference": "2e73538b3376ce060fd4a77176bdb7adf383d28b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mageplaza/magento-2-latvian-language-pack/zipball/2e73538b3376ce060fd4a77176bdb7adf383d28b",
+                "reference": "2e73538b3376ce060fd4a77176bdb7adf383d28b",
+                "shasum": ""
+            },
+            "require": {
+                "mageplaza/module-core": "^1.3.13"
+            },
+            "default-branch": true,
+            "type": "magento2-language",
+            "autoload": {
+                "files": [
+                    "registration.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mageplaza team",
+                    "email": "hi@mageplaza.com",
+                    "homepage": "https://www.mageplaza.com",
+                    "role": "Leader"
+                }
+            ],
+            "description": "Latvian language package for Magento 2",
+            "homepage": "https://www.mageplaza.com",
+            "support": {
+                "issues": "https://github.com/mageplaza/magento-2-latvian-language-pack/issues",
+                "source": "https://github.com/mageplaza/magento-2-latvian-language-pack/tree/master"
+            },
+            "time": "2022-02-22T09:04:46+00:00"
+        },
+        {
+            "name": "mageplaza/module-core",
+            "version": "1.5.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mageplaza/module-core.git",
+                "reference": "64fc245876d9e1d5d6dd9d44963e641cc3c81e29"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mageplaza/module-core/zipball/64fc245876d9e1d5d6dd9d44963e641cc3c81e29",
+                "reference": "64fc245876d9e1d5d6dd9d44963e641cc3c81e29",
+                "shasum": ""
+            },
+            "type": "magento2-module",
+            "autoload": {
+                "files": [
+                    "registration.php"
+                ],
+                "psr-4": {
+                    "Mageplaza\\Core\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Mageplaza",
+                    "email": "support@mageplaza.com",
+                    "homepage": "https://www.mageplaza.com",
+                    "role": "Technical Support"
+                }
+            ],
+            "description": "Mageplaza Core for Magento 2",
+            "support": {
+                "source": "https://github.com/mageplaza/module-core/tree/v1.5.10"
+            },
+            "time": "2025-01-10T03:40:31+00:00"
+        },
+        {
             "name": "magewirephp/magewire",
             "version": "1.11.1",
             "source": {
@@ -28828,6 +28913,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "mageplaza/magento-2-latvian-language-pack": 20,
         "honl/magento2-templatehints": 20
     },
     "prefer-stable": true,
