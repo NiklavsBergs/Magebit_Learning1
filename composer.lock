@@ -2614,6 +2614,55 @@
             "time": "2025-01-07T13:54:52+00:00"
         },
         {
+            "name": "hyva-themes/magento2-hyva-widgets",
+            "version": "1.0.3",
+            "dist": {
+                "type": "zip",
+                "url": "https://hyva-themes.repo.packagist.com/ieliecmaisa-lv/dists/hyva-themes/magento2-hyva-widgets/1.0.3.0/9c8c302c2d8c791078cc3b799d5fea5c09161b85.zip",
+                "reference": "9c8c302c2d8c791078cc3b799d5fea5c09161b85",
+                "mirrors": [
+                    {
+                        "url": "https://hyva-themes.repo.packagist.com/ieliecmaisa-lv/dists/%package%/%version%/r%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "hyva-themes/magento2-default-theme": ">=1.1.10",
+                "magento/framework": ">=102.0.0",
+                "php": ">=7.4.0"
+            },
+            "type": "magento2-module",
+            "autoload": {
+                "files": [
+                    "src/registration.php"
+                ],
+                "psr-4": {
+                    "Hyva\\Widgets\\": "src/"
+                }
+            },
+            "notification-url": "https://hyva-themes.repo.packagist.com/ieliecmaisa-lv/downloads/",
+            "license": [
+                "See LICENSE.md or https://hyva.io/license"
+            ],
+            "authors": [
+                {
+                    "name": "Goran Horvat",
+                    "email": "goran@bemeir.com"
+                },
+                {
+                    "name": "Willem Wigman",
+                    "email": "willem@hyva.io"
+                }
+            ],
+            "description": "Hyvä Themes Magento 2 module that adds a simple widget CMS system",
+            "support": {
+                "source": "https://gitlab.hyva.io/hyva-themes/magento2-hyva-widgets/-/tree/1.0.3",
+                "issues": "https://gitlab.hyva.io/hyva-themes/magento2-hyva-widgets/-/issues"
+            },
+            "time": "2024-08-28T14:23:14+00:00"
+        },
+        {
             "name": "hyva-themes/magento2-luma-checkout",
             "version": "1.1.6",
             "dist": {

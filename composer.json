@@ -22,6 +22,7 @@
         "hyva-themes/magento2-email-module": "^1.0",
         "hyva-themes/magento2-graphql-tokens": "^1.0",
         "hyva-themes/magento2-hyva-checkout": "^1.1",
+        "hyva-themes/magento2-hyva-widgets": "^1.0",
         "hyva-themes/magento2-luma-checkout": "^1.1",
         "hyva-themes/magento2-reset-theme": "^1.1",
         "hyva-themes/magento2-theme-module": "^1.3",
