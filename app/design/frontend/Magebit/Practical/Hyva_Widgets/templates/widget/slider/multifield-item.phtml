@@ -1,0 +1,50 @@
+<?php
+/**
+ * Hyvä Themes - https://hyva.io
+ * Copyright © Hyvä Themes 2020-present. All rights reserved.
+ * See https://hyva.io/license
+ */
+
+declare(strict_types=1);
+
+use Hyva\Theme\Model\ViewModelRegistry;
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+
+// phpcs:disable Generic.Files.LineLength.TooLong
+
+/** @var Template $block */
+/** @var Escaper $escaper */
+/** @var ViewModelRegistry $viewModels */
+
+
+// The item to render is set on the block before the template is rendered:
+$column = $block->getData('item');
+
+$buttonLabel = $column->getButton();
+$buttonUrl = $column->getButtonUrl();
+?>
+
+<div class="flex flex-row items-center bg-[#003057] text-white p-10">
+
+    <div class="w-1/2 pr-10">
+        <h3 class="text-3xl mt-5"><?= $escaper->escapeHtml($column->getTitle()) ?></h3>
+        <p class="mt-4 text-base">
+            <?= /** @noEscape */ $column->getDescription(); ?>
+        </p>
+        <div class="mt-6 flex space-x-4">
+        </div>
+    </div>
+
+    <div class="w-1/2">
+        <div class="">
+            <a href="<?= $escaper->escapeUrl($column->getButtonUrl()) ?>">
+                <img src="<?= $escaper->escapeUrl($column->getThumbnail()); ?>"
+                     alt="<?= $escaper->escapeHtmlAttr($column->getTitle()) ?>"
+                     loading="lazy"
+                     class="object-cover w-full h-auto shadow-lg"
+                >
+            </a>
+        </div>
+    </div>
+</div>

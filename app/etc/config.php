@@ -355,6 +355,7 @@ return [
         'Hyva_OrderCancellationWebapi' => 1,
         'Magewirephp_Magewire' => 0,
         'Hyva_LumaCheckout' => 1,
+        'Hyva_Widgets' => 1,
         'Learning_DataPatch' => 1,
         'Learning_Database' => 1,
         'MSP_Common' => 1,

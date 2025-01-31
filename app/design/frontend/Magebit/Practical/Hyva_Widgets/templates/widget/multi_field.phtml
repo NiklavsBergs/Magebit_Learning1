@@ -1,0 +1,110 @@
+<?php
+/**
+ * Hyvä Themes - https://hyva.io
+ * Copyright © Hyvä Themes 2020-present. All rights reserved.
+ * See https://hyva.io/license
+ */
+
+declare(strict_types=1);
+
+use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\Slider;
+use Hyva\Widgets\Block\Widgets\MultiField;
+use Magento\Framework\Escaper;
+
+// phpcs:disable Generic.Files.LineLength.TooLong
+
+/** @var Escaper $escaper */
+/** @var MultiField $block */
+/** @var ViewModelRegistry $viewModels */
+/** @var Slider $sliderViewModel */
+
+$containerBackground = $block->getData('hyva_multi_field_container_background') ?: '';
+$contentMargin = $block->getData('hyva_multi_field_margin') ?: '';
+$contentPadding = $block->getData('hyva_multi_field_padding') ?: '';
+$contentContainerClasses = $block->getData('hyva_multi_field_container') ? 'container mx-auto' : '';
+
+$displayType = $block->getData('hyva_multi_field_type');
+$widgetTitle = $block->getData('hyva_multi_field_title');
+$widgetText = $block->getData('hyva_multi_field_data');
+
+$multiFieldSteps = $block->getMultiFieldSteps() ?: [];
+
+if ($fadeAnimations = $block->getData('hyva_multi_field_fade_animations')) {
+    $animationClasses = 'transform ease-in-out transition';
+    $animationClassesStart = 'duration-300 ';
+    $animationClassesEnd = 'duration-500 ';
+
+    if ($fadeAnimations) {
+        if (strpos($fadeAnimations, 'fade') !== false) {
+            $animationClassesStart .= 'opacity-0';
+            $animationClassesEnd .= 'opacity-100';
+        }
+
+        if (strpos($fadeAnimations, 'up') !== false) {
+            $animationClassesStart .= ' translate-y-20';
+            $animationClassesEnd .= ' translate-y-0';
+        }
+
+        if (strpos($fadeAnimations, 'right') !== false) {
+            $animationClassesStart .= ' -translate-x-20';
+            $animationClassesEnd .= ' translate-x-0';
+        }
+
+        if (strpos($fadeAnimations, 'down') !== false) {
+            $animationClassesStart .= ' -translate-y-20';
+            $animationClassesEnd .= ' translate-y-0';
+        }
+
+        if (strpos($fadeAnimations, 'left') !== false) {
+            $animationClassesStart .= ' translate-x-20';
+            $animationClassesEnd .= ' translate-x-0';
+        }
+    }
+}
+?>
+<div class="overflow-hidden -m-4 p-4 bg-[#003057]">
+    <section
+        <?php if ($containerBackground): ?>style="background: <?= $escaper->escapeHtmlAttr($containerBackground) ?>"<?php endif; ?>
+        <?php if ($fadeAnimations): ?>
+            x-data="{ intersecting: false }"
+            x-intersect:enter="intersecting = true"
+            x-intersect:leave="intersecting = false"
+            :class="{
+                '<?= $escaper->escapeHtmlAttr($animationClassesEnd) ?>' : intersecting,
+                '<?= $escaper->escapeHtmlAttr($animationClassesStart) ?>' : !intersecting
+            }"
+        <?php endif; ?>
+        class="hyva_multi_field section
+        <?= $escaper->escapeHtmlAttr($fadeAnimations ? $animationClasses . ' ' . $animationClassesStart . '' : '') ?>
+        <?= $escaper->escapeHtmlAttr($contentContainerClasses . ' ' . $contentMargin) ?>"
+    >
+        <div class="hyva_multi_field-content-data <?= $escaper->escapeHtmlAttr($contentPadding) ?>">
+
+            <?php if ($widgetTitle || $widgetText): ?>
+                <div class="relative max-w-7xl mx-auto">
+                    <div class="text-center">
+                        <?php if ($widgetTitle): ?>
+                            <h2 class="text-2xl font-medium text-gray-900 title-font">
+                                <?= $escaper->escapeHtml($widgetTitle) ?>
+                            </h2>
+                        <?php endif; ?>
+                        <?php if ($widgetText): ?>
+                            <p class="mt-3 max-w-2xl mx-auto text-xl text-gray-500 sm:mt-4">
+                                <?= $escaper->escapeHtml($widgetText); ?>
+                            </p>
+                        <?php endif ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <?php
+            $sliderViewModel = $viewModels->require(Slider::class);
+            $itemsTemplate = 'Hyva_Widgets::widget/slider/multifield-item.phtml';
+            ?>
+            <?= $sliderViewModel->getSliderForItems($itemsTemplate, $multiFieldSteps)
+                ->toHtml() ?>
+
+        </div>
+    </section>
+</div>
