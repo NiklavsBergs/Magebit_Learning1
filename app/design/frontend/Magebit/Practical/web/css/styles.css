@@ -3875,6 +3875,10 @@ table th, table td {
   margin-top: 1rem;
 }
 
+.mt-5 {
+  margin-top: 1.25rem;
+}
+
 .mt-6 {
   margin-top: 1.5rem;
 }
@@ -3885,10 +3889,6 @@ table th, table td {
 
 .mt-auto {
   margin-top: auto;
-}
-
-.mt-5 {
-  margin-top: 1.25rem;
 }
 
 .box-content {
@@ -3941,6 +3941,10 @@ table th, table td {
 
 .hidden {
   display: none;
+}
+
+.h-1 {
+  height: 0.25rem;
 }
 
 .h-1\/2 {
@@ -4005,6 +4009,10 @@ table th, table td {
 
 .h-full {
   height: 100%;
+}
+
+.h-14 {
+  height: 3.5rem;
 }
 
 .max-h-full {
@@ -4154,6 +4162,10 @@ table th, table td {
 
 .w-screen {
   width: 100vw;
+}
+
+.w-14 {
+  width: 3.5rem;
 }
 
 .min-w-20 {
@@ -4894,6 +4906,11 @@ table th, table td {
   border-color: rgb(251 191 36 / var(--tw-border-opacity));
 }
 
+.bg-\[\#003057\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 48 87 / var(--tw-bg-opacity));
+}
+
 .bg-black {
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
@@ -4997,11 +5014,6 @@ table th, table td {
   background-color: rgb(239 68 68 / var(--tw-bg-opacity));
 }
 
-.bg-slate-800 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(30 41 59 / var(--tw-bg-opacity));
-}
-
 .bg-transparent {
   background-color: transparent;
 }
@@ -5029,14 +5041,14 @@ table th, table td {
   background-color: rgb(245 158 11 / var(--tw-bg-opacity));
 }
 
-.bg-\[\#002B53\] {
+.bg-\[\#0F3554\] {
   --tw-bg-opacity: 1;
-  background-color: rgb(0 43 83 / var(--tw-bg-opacity));
+  background-color: rgb(15 53 84 / var(--tw-bg-opacity));
 }
 
-.bg-\[\#003057\] {
+.bg-\[\#18466B\] {
   --tw-bg-opacity: 1;
-  background-color: rgb(0 48 87 / var(--tw-bg-opacity));
+  background-color: rgb(24 70 107 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-100 {
@@ -5499,6 +5511,11 @@ table th, table td {
   letter-spacing: 0.1em;
 }
 
+.text-\[\#002B53\] {
+  --tw-text-opacity: 1;
+  color: rgb(0 43 83 / var(--tw-text-opacity));
+}
+
 .text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
@@ -5675,6 +5692,10 @@ table th, table td {
   opacity: 0.75;
 }
 
+.opacity-10 {
+  opacity: 0.1;
+}
+
 .mix-blend-darken {
   mix-blend-mode: darken;
 }
@@ -5801,6 +5822,12 @@ table th, table td {
 
 .transition-transform {
   transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.transition-all {
+  transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
@@ -6496,6 +6523,11 @@ fieldset ~ fieldset {
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-gray-300:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-green-500:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(16 185 129 / var(--tw-bg-opacity));
@@ -6508,6 +6540,11 @@ fieldset ~ fieldset {
 
 .hover\:bg-primary\/10:hover {
   background-color: rgb(29 78 216 / 0.1);
+}
+
+.hover\:bg-\[\#1C4B6E\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(28 75 110 / var(--tw-bg-opacity));
 }
 
 .hover\:text-black:hover {
@@ -6579,6 +6616,10 @@ fieldset ~ fieldset {
 
 .hover\:opacity-75:hover {
   opacity: 0.75;
+}
+
+.hover\:opacity-25:hover {
+  opacity: 0.25;
 }
 
 .hover\:shadow-sm:hover {
