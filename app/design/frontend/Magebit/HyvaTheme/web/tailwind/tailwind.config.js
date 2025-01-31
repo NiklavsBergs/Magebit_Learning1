@@ -120,9 +120,4 @@ module.exports = hyvaModules.mergeTailwindConfig({
     // app/code phtml files (if need tailwind classes from app/code modules)
     //'../../../../../../../app/code/**/*.phtml',
   ],
-  safelist: [
-    {
-      pattern: /.*/, // match ALL classes
-    },
-  ],
 });
