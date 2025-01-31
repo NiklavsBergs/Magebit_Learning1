@@ -1764,7 +1764,7 @@ also replace `custom` with your own mode name.
   display: block;
 }
 
-[data-content-type$='block'] .price-excluding-tax p:last-child,[data-content-type$='block'] 
+[data-content-type$='block'] .price-excluding-tax p:last-child,[data-content-type$='block']
 .weee[data-label] p:last-child {
   margin-bottom: 1rem;
   margin-top: 0px;

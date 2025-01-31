@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+/**
+* This file is part of the Magebit Practical package.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade Magebit Practical
+* to newer versions in the future.
+*
+* @copyright Copyright (c) 2024 Magebit, Ltd. (https://magebit.com/)
+* @license   GNU General Public License ("GPL") v3.0
+*
+* For the full copyright and license information, please view the LICENSE
+* file that was distributed with this source code.
+*/
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceContainer name="page.top">
+            <block class="Magento\Theme\Block\Html\Breadcrumbs" name="breadcrumbs" as="breadcrumbs">
+                <action method="addCrumb">
+                    <argument name="crumbName" xsi:type="string">home</argument>
+                    <argument name="crumbInfo" xsi:type="array">
+                        <item name="title" xsi:type="string">Sākums</item>
+                        <item name="label" xsi:type="string">Sākums</item>
+                        <item name="link" xsi:type="string">{{base url}}</item>
+                    </argument>
+                </action>
+                <action method="addCrumb">
+                    <argument name="crumbName" xsi:type="string">account</argument>
+                    <argument name="crumbInfo" xsi:type="array">
+                        <item name="title" xsi:type="string">Mans profils</item>
+                        <item name="label" xsi:type="string">Mans profils</item>
+                    </argument>
+                </action>
+            </block>
+        </referenceContainer>
+
+        <referenceBlock name="breadcrumbs">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Magento_Theme::html/breadcrumbs.phtml</argument>
+            </action>
+        </referenceBlock>
+
+        <referenceBlock name="sidebar.main.account_nav">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Magento_Theme::html/collapsible.phtml</argument>
+            </action>
+        </referenceBlock>
+
+        <referenceBlock name="customer-account-navigation-delimiter-2" remove="true" />
+
+    </body>
+</page>

@@ -1,0 +1,239 @@
+<?php
+/**
+ * This file is part of the Magebit Practical package.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magebit Practical
+ * to newer versions in the future.
+ *
+ * @copyright Copyright (c) 2025 Magebit, Ltd. (https://magebit.com/)
+ * @license   GNU General Public License ("GPL") v3.0
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+ declare(strict_types=1);
+
+use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\HeroiconsOutline;
+use Magento\Framework\Data\Helper\PostHelper;
+use Magento\Framework\Escaper;
+use Magento\Sales\Block\Order\Recent;
+use Magento\Sales\Helper\Reorder;
+use Magento\Sales\Model\Order;
+
+/** @var Escaper $escaper */
+/** @var Recent $block */
+/** @var ViewModelRegistry $viewModels */
+
+/** @var HeroiconsOutline $heroicons */
+$heroicons = $viewModels->require(HeroiconsOutline::class);
+
+/** @var Order[] $orders */
+$orders = $block->getOrders();
+$count  = count($orders);
+
+$extraActions = [];
+if ($extraActionTitleBlocks = $block->getLayout()->getChildBlocks('order-list-extra-action-titles')) {
+    foreach ($extraActionTitleBlocks as $alias => $extraActionTitleBlock) {
+        $extraActions[$alias] = $extraActionTitleBlock->toHtml();
+    }
+    $extraActions = array_filter($extraActions, function ($output, string $alias) use ($block): bool {
+        return trim($output) && $block->getLayout()->getChildBlock('order-list-extra-action-buttons', $alias);
+    }, ARRAY_FILTER_USE_BOTH);
+}
+
+$ordersArray = [];
+foreach ($orders as $order) {
+    $ordersArray[] = [
+        'id' => $order->getId(),
+        'date' => date('d.m.Y', strtotime($order->getCreatedAt())),
+        'shipTo' => $order->getShippingAddress() ? $order->getShippingAddress()->getName() : '',
+        'total' => number_format((float)$order->getGrandTotal(), 2, '.', ''),
+        'status' => $order->getStatus(),
+        'statusLabel' => $order->getStatusLabel(),
+        'viewUrl' => $block->getViewUrl($order),
+        'reorderUrl' => $block->getViewUrl($order),
+    ];
+}
+
+$jsonOrders = json_encode($ordersArray);
+?>
+
+<div x-data="initOrders()" x-init="init">
+    <div
+        class="block block-dashboard-orders table-container border border-gray-300"
+        x-data="{ tabIndex: -1 }"
+    >
+        <div class="block-title order py-4 flex justify-between items-center">
+            <h2
+                id="recentOrders"
+                class="text-xl font-bold block pl-6"
+                @focus="tabIndex = 0;"
+                @blur="tabIndex = -1"
+                :tabindex="tabIndex"
+            ><?= $escaper->escapeHtml(__('Recent Orders')) ?></h2>
+        </div>
+        <div class="overflow-x-auto">
+            <?= $block->getChildHtml() ?>
+            <?php if ($count > 0): ?>
+                <table
+                    id="my-orders-table"
+                    class="block-content w-full sm:table-fixed lg:table-auto"
+                    aria-labelledby="recentOrders"
+                >
+                    <thead class="bg-indigo-950 text-white uppercase h-10">
+                        <tr>
+                            <th class="text-xs text-start">
+                                <?= $escaper->escapeHtml(__('Order #')) ?>
+                            </th>
+                            <th class="text-xs text-start lg:table-cell cursor-pointer flex items-center gap-1" @click="sortOrders()">
+                                <span class="flex items-center gap-1">
+                                    <?= $escaper->escapeHtml(__('Date')) ?>
+                                    <span class="flex flex-col leading-none">
+                                        <?= $heroicons->chevronUpHtml('w-2 h-2 text-white') ?>
+                                        <?= $heroicons->chevronDownHtml('w-2 h-2 text-white') ?>
+                                    </span>
+                                </span>
+                            </th>
+                            <th class="text-xs text-start">
+                                <?= $escaper->escapeHtml(__('Ship To')) ?>
+                            </th>
+                            <th class="text-xs text-start hidden lg:table-cell">
+                                <?= $escaper->escapeHtml(__('Order Total')) ?>
+                            </th>
+                            <th class="text-xs text-start hidden lg:table-cell">
+                                <?= $escaper->escapeHtml(__('Status')) ?>
+                            </th>
+                            <th class="text-xs text-center">
+                                <?= $escaper->escapeHtml(__('View')) ?>
+                                <?php if ($this->helper(Reorder::class)->isAllow()): ?>
+                                    / <?= $escaper->escapeHtml(__('Reorder')) ?>
+                                <?php endif; ?>
+                                <?php foreach ($extraActions as $extraActionTitle): ?>
+                                    / <?= /** @noEscape  */ $extraActionTitle ?>
+                                <?php endforeach; ?>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template x-for="order in orders" :key="order.id">
+                            <tr class="align-top border-b border-gray-300">
+                                <th
+                                    class="text-start font-normal"
+                                    x-text="order.id"
+                                >
+                                </th>
+                                <td class="hidden lg:table-cell" x-text="order.date"></td>
+                                <td x-text="order.shipTo"></td>
+                                <td class="hidden lg:table-cell font-bold" x-text="`€ ${order.total}`"></td>
+                                <td class="hidden lg:table-cell">
+                                     <span class="status-dot <?php
+                                     switch ($order->getStatus()) {
+                                         case 'complete': echo 'status-paid'; break;
+                                         case 'processing': echo 'status-processing'; break;
+                                         case 'pending': echo 'status-pending'; break;
+                                         case 'canceled': echo 'status-cancelled'; break;
+                                         default: echo 'bg-gray-400';
+                                     }
+                                     ?>"></span>
+                                    <span x-text="order.statusLabel"></span>
+                                </td>
+                                <td>
+                                    <?php if ($order->getStatus() !== 'received'): ?>
+                                        <div class="flex items-center justify-center gap-3">
+                                            <a
+                                                :href="order.viewUrl"
+                                                class="inline-block text-sm underline text-indigo-950"
+                                                title="<?= $escaper->escapeHtmlAttr(__('View Order')) ?>"
+                                                aria-label="<?= $escaper->escapeHtmlAttr(__('View order')) ?>"
+                                            >
+                                                <?= $heroicons->eyeHtml('', 24, 24, ['aria-hidden' => 'true']) ?>
+                                            </a>
+                                            <?php if ($this->helper(Reorder::class)->canReorder($order->getEntityId())): ?>
+                                                <?php $formData = json_decode(
+                                                    $this->helper(PostHelper::class)->getPostData(
+                                                        $block->getReorderUrl($order)
+                                                    ),
+                                                    true
+                                                ) ?>
+                                                <form
+                                                    action="<?= $escaper->escapeUrl($formData['action']) ?>"
+                                                    method="post"
+                                                    class="inline-flex items-center"
+                                                >
+                                                    <?= $block->getBlockHtml('formkey'); ?>
+                                                    <input type="hidden" name="data" value='<?= /* @noEscape */ json_encode($formData['data']) ?>'>
+                                                    <button
+                                                        title="<?= $escaper->escapeHtmlAttr(__('Reorder')) ?>"
+                                                        type="submit"
+                                                        class="inline-block text-sm text-indigo-950"
+                                                        aria-label="<?= $escaper->escapeHtmlAttr(__('Reorder') . ' ' . ltrim($order->getRealOrderId(), '0')) ?>"
+                                                    >
+                                                        <?= $heroicons->refreshHtml('', 24, 24, ['aria-hidden' => 'true']) ?>
+                                                    </button>
+                                                </form>
+                                            <?php else: ?>
+                                                <?= $heroicons->refreshHtml('text-gray-300', 24, 24, ['aria-hidden' => 'true']) ?>
+                                            <?php endif ?>
+                                            <?php foreach (array_keys($extraActions) as $alias): ?>
+                                                <?php $button = $block->getLayout()->getChildBlock('order-list-extra-action-buttons', $alias) ?>
+                                                <?= $button->assign('order', $order)->setData('order', $order)->toHtml() ?>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+                <div class="block-title order py-4 flex justify-between items-center">
+                    <?php if ($count > 0): ?>
+                    <div class="bg-red-500 mx-6">
+                        <a
+                            class="action view inline-block text-white uppercase px-7 py-3 text-sm font-bold"
+                            href="<?= $escaper->escapeUrl($block->getUrl('sales/order/history')) ?>"
+                            aria-label="<?= $escaper->escapeHtmlAttr(__('View all orders')) ?>"
+                        ><?= $escaper->escapeHtml(__('View All')) ?></a>
+                    </div>
+                    <?php endif; ?>
+                </div>
+            <?php else: ?>
+                <div class="message info empty">
+                    <span><?= $escaper->escapeHtml(__('You have placed no orders.')) ?></span>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+
+<script>
+    function initOrders() {
+        return {
+            orders: [],
+            sortOrder: 'desc',
+            init : function() {
+                this.orders = JSON.parse('<?= $jsonOrders ?>');
+            },
+            sortOrders : function()  {
+                this.orders.sort((a, b) => {
+                    let dateA = this.parseDate(a.date);
+                    let dateB = this.parseDate(b.date);
+
+                    return this.sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
+                });
+
+                this.sortOrder = this.sortOrder === 'desc' ? 'asc' : 'desc';
+            },
+            parseDate: function(dateStr) {
+                let parts = dateStr.split(".");
+                if (parts.length === 3) {
+                    return new Date(parts[2], parts[1] - 1, parts[0]);
+                }
+                return new Date(dateStr);
+            }
+        };
+    }
+</script>
